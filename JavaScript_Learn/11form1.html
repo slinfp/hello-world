@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form action="#">
+    <input type="text" name="uname"><span></span><br>
+    <input type="text" name="age"><span></span><br>
+    <input type="text" name="email"><span></span><br>
+    <input type="submit">
+</form>
+<script type="text/javascript">
+    //onload为节点渲染完成后
+    //window.onload=function () {
+        let unameR=/^[a-zA-Z_]\w{3,9}/;
+        let emailR=/^\w+@\w+(\.\w{2,4})+/;
+        let uname=document.querySelector("input[name=uname]");
+        let age=document.querySelector("input[name=age]");
+        let email=document.querySelector("input[name=email]");
+        function checkByRegexp(input,reg,msg) {
+            input.nextElementSibling.innerHTML="";
+            if(!reg.test(input.value)){
+                input.nextElementSibling.innerHTML=msg;
+                return false;
+            }
+            return true;
+        }
+        function checkage() {
+            age.nextElementSibling.innerHTML="";
+            let value=Number.parseInt(age.value);
+            if(Number.isNaN(value)){
+                age.nextSibling.innerHTML="no number";
+                return false;
+            }
+            return true;
+        }
+        uname.onblur=function () {
+            checkByRegexp(uname,unameR,"Wrong name");
+        }
+        age.onblur=function () {
+            checkage();
+        }
+        email.onblur=function () {
+            checkByRegexp(email,emailR,"Wrong email");
+        }
+        let sub=document.querySelector("form").onsubmit=function (event) {
+            let b1=checkByRegexp(uname,unameR,"Wrong name")
+            if(!b1){
+                event.preventDefault();
+            }
+        }
+
+    //}
+</script>
+</body>
+</html>y
